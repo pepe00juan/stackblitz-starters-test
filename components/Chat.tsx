@@ -13,21 +13,24 @@ interface Message {
 interface ModelOption {
   id: string;
   name: string;
-  provider: 'groq' | 'huggingface';
+  provider: 'groq' | 'huggingface' | 'x.ai';
 }
 
 const availableModels: ModelOption[] = [
-  // Groq models (rápidos y baratos)
-  { id: 'llama-3.3-70b-versatile', name: 'Llama 3.3 70B (Groq)', provider: 'groq' },
-  { id: 'llama-3.1-8b-instant', name: 'Llama 3.1 8B (Groq - Muy rápido)', provider: 'groq' },
-  { id: 'openai/gpt-oss-20b', name: 'GPT OSS 20B (Groq)', provider: 'groq' },
-  { id: 'openai/gpt-oss-120b', name: 'GPT OSS 120B (Groq - Potente)', provider: 'groq' },
-
-  // Hugging Face models (a través de Inference API / Providers)
-  { id: 'meta-llama/Llama-3.1-70B-Instruct', name: 'Llama 3.1 70B (HF)', provider: 'huggingface' },
-  { id: 'Qwen/Qwen2.5-72B-Instruct', name: 'Qwen2.5 72B (HF)', provider: 'huggingface' },
-  { id: 'mistralai/Mixtral-8x22B-Instruct-v0.1', name: 'Mixtral 8x22B (HF)', provider: 'huggingface' },
-];
+  const availableModels = [
+    // === Groq ===
+    { id: 'llama-3.3-70b-versatile', name: 'Llama 3.3 70B (Groq - Rápido)', provider: 'groq' as const },
+    { id: 'llama-3.1-8b-instant', name: 'Llama 3.1 8B (Groq - Muy rápido)', provider: 'groq' as const },
+  
+    // === xAI Grok (nuevo) ===
+    { id: 'grok-4.20-0309-reasoning', name: 'Grok 4.20 Reasoning (xAI)', provider: 'xai' as const },
+    { id: 'grok-4.20-0309-non-reasoning', name: 'Grok 4.20 Non-Reasoning (xAI)', provider: 'xai' as const },
+    { id: 'grok-4-1-fast-reasoning', name: 'Grok 4.1 Fast Reasoning (xAI - Más económico)', provider: 'xai' as const },
+  
+    // === Hugging Face ===
+    { id: 'meta-llama/Llama-3.1-70B-Instruct', name: 'Llama 3.1 70B (HF)', provider: 'huggingface' as const },
+    { id: 'Qwen/Qwen2.5-72B-Instruct', name: 'Qwen2.5 72B (HF)', provider: 'huggingface' as const },
+  ];
 
 export default function Chat() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -134,9 +137,11 @@ export default function Chat() {
               </option>
             ))}
           </select>
-          <p className="text-xs text-gray-500 mt-1">
-            {currentModel.provider === 'groq' ? '🚀 Groq (muy rápido)' : '🤗 Hugging Face'}
-          </p>
+            <p className="text-xs text-gray-500 mt-1">
+                {currentModel.provider === 'groq' && '🚀 Groq (muy rápido)'}
+                {currentModel.provider === 'xai' && '⚡ Grok xAI (buenos límites)'}
+                {currentModel.provider === 'huggingface' && '🤗 Hugging Face'}
+            </p>
         </div>
       </div>
 
