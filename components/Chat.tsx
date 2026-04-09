@@ -15,7 +15,7 @@ interface ModelOption {
   id: string;
   name: string;
   provider: 'groq' | 'huggingface' | 'xai';
-}
+},
 
 const availableModels: ModelOption[] = [
   // === Groq ===
