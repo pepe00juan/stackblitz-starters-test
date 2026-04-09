@@ -9,11 +9,12 @@
     "lint": "next lint --fix"
   },
   "dependencies": {
-    "@ai-sdk/groq": "^3.0.29",
+    "@ai-sdk/groq": "^3.0.35",
+    "@ai-sdk/huggingface": "^1.0.43",
     "@ai-sdk/openai": "^3.0.39",
-    "@ai-sdk/react": "^3.0.118",
+    "@ai-sdk/react": "^3.0.156",
     "@eslint/eslintrc": "^3.3.5",
-    "ai": "^6.0.116",
+    "ai": "^6.0.154",
     "geist": "^1.7.0",
     "groq-sdk": "^0.37.0",
     "lucide-react": "^0.576.0",
