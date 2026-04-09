@@ -19,45 +19,45 @@ interface ModelOption {
 
 const availableModels: ModelOption[] = [
   // === Groq ===
-  { 
-    id: 'llama-3.3-70b-versatile', 
-    name: 'Llama 3.3 70B (Groq - Rápido)', 
-    provider: 'groq' 
+  {
+    id: 'llama-3.3-70b-versatile',
+    name: 'Llama 3.3 70B (Groq - Rápido)',
+    provider: 'groq'
   },
-  { 
-    id: 'llama-3.1-8b-instant', 
-    name: 'Llama 3.1 8B (Groq - Muy rápido)', 
-    provider: 'groq' 
+  {
+    id: 'llama-3.1-8b-instant',
+    name: 'Llama 3.1 8B (Groq - Muy rápido)',
+    provider: 'groq'
   },
 
   // === xAI Grok ===
-  { 
-    id: 'grok-4.20-0309-reasoning', 
-    name: 'Grok 4.20 Reasoning (xAI)', 
-    provider: 'xai' 
+  {
+    id: 'grok-4.20-0309-reasoning',
+    name: 'Grok 4.20 Reasoning (xAI)',
+    provider: 'xai'
   },
-  { 
-    id: 'grok-4.20-0309-non-reasoning', 
-    name: 'Grok 4.20 Non-Reasoning (xAI)', 
-    provider: 'xai' 
+  {
+    id: 'grok-4.20-0309-non-reasoning',
+    name: 'Grok 4.20 Non-Reasoning (xAI)',
+    provider: 'xai'
   },
-  { 
-    id: 'grok-4-1-fast-reasoning', 
-    name: 'Grok 4.1 Fast Reasoning (xAI)', 
-    provider: 'xai' 
+  {
+    id: 'grok-4-1-fast-reasoning',
+    name: 'Grok 4.1 Fast Reasoning (xAI)',
+    provider: 'xai'
   },
 
   // === Hugging Face ===
-  { 
-    id: 'meta-llama/Llama-3.1-70B-Instruct', 
-    name: 'Llama 3.1 70B (HF)', 
-    provider: 'huggingface' 
+  {
+    id: 'meta-llama/Llama-3.1-70B-Instruct',
+    name: 'Llama 3.1 70B (HF)',
+    provider: 'huggingface'
   },
-  { 
-    id: 'Qwen/Qwen2.5-72B-Instruct', 
-    name: 'Qwen2.5 72B (HF)', 
-    provider: 'huggingface' 
-  },
+  {
+    id: 'Qwen/Qwen2.5-72B-Instruct',
+    name: 'Qwen2.5 72B (HF)',
+    provider: 'huggingface'
+  }
 ];
 
 export default function Chat() {
@@ -65,7 +65,7 @@ export default function Chat() {
   const [input, setInput] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [selectedModelId, setSelectedModelId] = useState('llama-3.3-70b-versatile'); // modelo por defecto
+  const [selectedModelId, setSelectedModelId] = useState('llama-3.3-70b-versatile');
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -79,10 +79,10 @@ export default function Chat() {
     e.preventDefault();
     if (!input.trim() || isProcessing) return;
 
-    const userMessage: Message = { 
-      role: 'user', 
-      content: input, 
-      id: crypto.randomUUID() 
+    const userMessage: Message = {
+      role: 'user',
+      content: input,
+      id: crypto.randomUUID()
     };
 
     setMessages(prev => [...prev, userMessage]);
@@ -94,7 +94,7 @@ export default function Chat() {
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           messages: [...messages, userMessage],
           model: selectedModelId,
           provider: currentModel.provider
@@ -109,10 +109,10 @@ export default function Chat() {
       const decoder = new TextDecoder();
       const assistantMessageId = crypto.randomUUID();
 
-      setMessages(prev => [...prev, { 
-        id: assistantMessageId, 
-        role: 'assistant', 
-        content: '' 
+      setMessages(prev => [...prev, {
+        id: assistantMessageId,
+        role: 'assistant',
+        content: ''
       }]);
 
       let currentContent = '';
@@ -123,13 +123,12 @@ export default function Chat() {
         const chunkText = decoder.decode(value, { stream: true });
         currentContent += chunkText;
 
-        setMessages(prev => prev.map(msg => 
-          msg.id === assistantMessageId 
-            ? { ...msg, content: currentContent } 
+        setMessages(prev => prev.map(msg =>
+          msg.id === assistantMessageId
+            ? { ...msg, content: currentContent }
             : msg
         ));
       }
-
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Error de conexión';
       setError(errorMessage);
@@ -147,7 +146,7 @@ export default function Chat() {
         </h1>
       </header>
 
-      {/* === SELECTOR DE MODELO === */}
+      {/* SELECTOR DE MODELO */}
       <div className="bg-white/80 backdrop-blur-md border-b border-gray-200 p-3 sticky top-[73px] z-10">
         <div className="max-w-4xl mx-auto">
           <label className="block text-sm font-medium text-gray-600 mb-1">
@@ -186,7 +185,7 @@ export default function Chat() {
             <div className={`rounded-2xl shadow-md transition-shadow hover:shadow-lg ${
               msg.role === 'user'
                 ? 'p-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-br-none'
-                : msg.content.includes('[IMAGE:') 
+                : msg.content.includes('[IMAGE:')
                   ? 'bg-transparent border-none shadow-none p-0'
                   : 'bg-white border border-gray-100 rounded-bl-none'
             }`}>
@@ -231,7 +230,7 @@ export default function Chat() {
   );
 }
 
-// Componente MessageContent (sin cambios)
+// Componente MessageContent
 const MessageContent = ({ content }: { content: string }) => {
   const [imageError, setImageError] = useState(false);
   const imageMatch = content.match(/\[IMAGE:(.*?)\]/);
@@ -244,10 +243,10 @@ const MessageContent = ({ content }: { content: string }) => {
         </div>
       );
     }
-    
+
     const prompt = imageMatch[1].trim() || 'a beautiful high-resolution image';
     const encoded = encodeURIComponent(prompt);
-    
+
     return (
       <div className="rounded-xl overflow-hidden aspect-square max-w-sm mx-auto group">
         <Image
