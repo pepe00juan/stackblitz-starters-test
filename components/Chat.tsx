@@ -10,7 +10,7 @@ interface Message {
   content: string;
 }
 
-// ==================== TIPOS Y MODELOS ====================
+// ==================== TIPOS Y MODELOS DISPONIBLES ====================
 interface ModelOption {
   id: string;
   name: string;
@@ -147,7 +147,7 @@ export default function Chat() {
         </h1>
       </header>
 
-      {/* === NUEVO SELECTOR DE MODELO === */}
+      {/* === SELECTOR DE MODELO === */}
       <div className="bg-white/80 backdrop-blur-md border-b border-gray-200 p-3 sticky top-[73px] z-10">
         <div className="max-w-4xl mx-auto">
           <label className="block text-sm font-medium text-gray-600 mb-1">
@@ -165,11 +165,11 @@ export default function Chat() {
               </option>
             ))}
           </select>
-            <p className="text-xs text-gray-500 mt-1">
-                {currentModel.provider === 'groq' && '🚀 Groq (muy rápido)'}
-                {currentModel.provider === 'xai' && '⚡ Grok xAI (buenos límites)'}
-                {currentModel.provider === 'huggingface' && '🤗 Hugging Face'}
-            </p>
+          <p className="text-xs text-gray-500 mt-1">
+            {currentModel.provider === 'groq' && '🚀 Groq (muy rápido)'}
+            {currentModel.provider === 'xai' && '⚡ Grok xAI (mejores límites)'}
+            {currentModel.provider === 'huggingface' && '🤗 Hugging Face'}
+          </p>
         </div>
       </div>
 
