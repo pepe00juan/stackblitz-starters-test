@@ -10,27 +10,55 @@ interface Message {
   content: string;
 }
 
+// ==================== TIPOS Y MODELOS ====================
 interface ModelOption {
   id: string;
   name: string;
-  provider: 'groq' | 'huggingface' | 'x.ai';
+  provider: 'groq' | 'huggingface' | 'xai';
 }
 
 const availableModels: ModelOption[] = [
-  const availableModels = [
-    // === Groq ===
-    { id: 'llama-3.3-70b-versatile', name: 'Llama 3.3 70B (Groq - Rápido)', provider: 'groq' as const },
-    { id: 'llama-3.1-8b-instant', name: 'Llama 3.1 8B (Groq - Muy rápido)', provider: 'groq' as const },
-  
-    // === xAI Grok (nuevo) ===
-    { id: 'grok-4.20-0309-reasoning', name: 'Grok 4.20 Reasoning (xAI)', provider: 'xai' as const },
-    { id: 'grok-4.20-0309-non-reasoning', name: 'Grok 4.20 Non-Reasoning (xAI)', provider: 'xai' as const },
-    { id: 'grok-4-1-fast-reasoning', name: 'Grok 4.1 Fast Reasoning (xAI - Más económico)', provider: 'xai' as const },
-  
-    // === Hugging Face ===
-    { id: 'meta-llama/Llama-3.1-70B-Instruct', name: 'Llama 3.1 70B (HF)', provider: 'huggingface' as const },
-    { id: 'Qwen/Qwen2.5-72B-Instruct', name: 'Qwen2.5 72B (HF)', provider: 'huggingface' as const },
-  ];
+  // === Groq ===
+  { 
+    id: 'llama-3.3-70b-versatile', 
+    name: 'Llama 3.3 70B (Groq - Rápido)', 
+    provider: 'groq' 
+  },
+  { 
+    id: 'llama-3.1-8b-instant', 
+    name: 'Llama 3.1 8B (Groq - Muy rápido)', 
+    provider: 'groq' 
+  },
+
+  // === xAI Grok ===
+  { 
+    id: 'grok-4.20-0309-reasoning', 
+    name: 'Grok 4.20 Reasoning (xAI)', 
+    provider: 'xai' 
+  },
+  { 
+    id: 'grok-4.20-0309-non-reasoning', 
+    name: 'Grok 4.20 Non-Reasoning (xAI)', 
+    provider: 'xai' 
+  },
+  { 
+    id: 'grok-4-1-fast-reasoning', 
+    name: 'Grok 4.1 Fast Reasoning (xAI)', 
+    provider: 'xai' 
+  },
+
+  // === Hugging Face ===
+  { 
+    id: 'meta-llama/Llama-3.1-70B-Instruct', 
+    name: 'Llama 3.1 70B (HF)', 
+    provider: 'huggingface' 
+  },
+  { 
+    id: 'Qwen/Qwen2.5-72B-Instruct', 
+    name: 'Qwen2.5 72B (HF)', 
+    provider: 'huggingface' 
+  },
+];
 
 export default function Chat() {
   const [messages, setMessages] = useState<Message[]>([]);
